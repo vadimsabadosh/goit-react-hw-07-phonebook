@@ -1,10 +1,13 @@
 import { PropTypes } from 'prop-types';
 import React from 'react';
+import { useDeleteItemMutation } from 'redux/phonebook';
 
-function ContactListItem({ number, name, deleteItem, id }) {
+function ContactListItem({ phone, name, id }) {
+  const [deleteItem] = useDeleteItemMutation();
+
   return (
     <li>
-      {name}: {number} <button onClick={() => deleteItem(id)}>Delete</button>
+      {name}: {phone} <button onClick={() => deleteItem(id)}>Delete</button>
     </li>
   );
 }
@@ -12,8 +15,7 @@ function ContactListItem({ number, name, deleteItem, id }) {
 export default ContactListItem;
 
 ContactListItem.propTypes = {
-  number: PropTypes.string.isRequired,
+  phone: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
-  deleteItem: PropTypes.func.isRequired,
   id: PropTypes.string.isRequired,
 };

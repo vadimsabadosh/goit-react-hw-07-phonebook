@@ -1,8 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
-import phonebookReducer from './phonebook';
+import { phonebookApi } from './phonebook';
 
 export const store = configureStore({
   reducer: {
-    phonebook: phonebookReducer,
+    [phonebookApi.reducerPath]: phonebookApi.reducer,
   },
+  middleware: getDefaultMiddleware =>
+    getDefaultMiddleware().concat(phonebookApi.middleware),
 });

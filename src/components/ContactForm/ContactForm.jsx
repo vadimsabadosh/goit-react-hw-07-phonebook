@@ -1,10 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
+import { useCreateContactMutation } from 'redux/phonebook';
 
-export default function ContactForm({ onAddContact, contacts }) {
+export default function ContactForm({ contacts }) {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
+
+  const [createContact] = useCreateContactMutation();
 
   function onChangeName(e) {
     setName(e.target.value);
@@ -18,7 +21,7 @@ export default function ContactForm({ onAddContact, contacts }) {
     if (name && number) {
       const isExists = contacts.find(item => item.name === name);
       if (!isExists) {
-        onAddContact(name, number);
+        createContact({ name, number });
         setNumber('');
         setName('');
       } else {
@@ -60,12 +63,11 @@ export default function ContactForm({ onAddContact, contacts }) {
   );
 }
 ContactForm.propTypes = {
-  onAddContact: PropTypes.func.isRequired,
   contacts: PropTypes.arrayOf(
     PropTypes.shape({
-      name: PropTypes.string.isRequired,
-      number: PropTypes.string.isRequired,
-      id: PropTypes.string.isRequired,
+      name: PropTypes.string,
+      number: PropTypes.string,
+      id: PropTypes.string,
     })
   ),
 };

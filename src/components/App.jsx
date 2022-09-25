@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { useGetAllContactsQuery } from 'redux/phonebook';
-
 import ContactForm from './ContactForm';
 import ContactList from './ContactList/ContactList';
 import Filter from './Filter';
